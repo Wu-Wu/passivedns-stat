@@ -18,6 +18,12 @@ passivedns-stat
 
 ## dns-top.pl: TOP доменов и адресов клиентов
 
+```shell
+$ ./dns-top.pl -a 10.1.13.13 logs/pdns1.log logs/pdns2.log
+```
+
+будет выведени следующая статистика:
+
 ```
 Statistics for nameserver: svo
 Nameserver IPs: 10.1.13.13
