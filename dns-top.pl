@@ -2,8 +2,7 @@
 
 use strict;
 use warnings;
-use feature ':5.12';
-use Data::Dump ();
+use feature ':5.10';
 use List::MoreUtils ();
 use Getopt::Long;
 use Sys::Hostname;
