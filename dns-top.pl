@@ -53,27 +53,11 @@ while (my $line = <>) {
     $totals += $hits;
 }
 
-# форматы для вывода данных
-my $formats = {
-    head => '%-30s %6s %s',
-    body => '%-30s %6d %.2f',
-};
+my @by_domains = arrange_stat($domain_stat, $LIMIT);
+my @by_ipaddrs = arrange_stat($ipaddr_stat, $LIMIT);
 
-my $top_domains = 0;
-my @stat = by_domains($domain_stat, $LIMIT);
-
-# показывать статистику "остальные домены"
-my $show_others = scalar(@stat) < 2*$LIMIT ? 0 : 1;
-
-say sprintf($formats->{head} => 'DOMAIN NAME', 'HITS', '%%');
-while (my ($domain, $hits) = splice @stat, 0, 2) {
-    say sprintf($formats->{body} => $domain, $hits, $hits/$totals*100);
-    $top_domains += $hits;
-}
-
-if ($show_others) {
-    say sprintf($formats->{body} => 'OTHER DOMAINS SUMMARY', $totals-$top_domains, ($totals-$top_domains)/$totals*100);
-}
+display_top('domain name', [ @by_domains ], $totals, $LIMIT);
+display_top('ip address', [ @by_ipaddrs ], $totals, $LIMIT);
 
 # преобразование запроса в доменное имя
 sub to_domain {
@@ -130,8 +114,8 @@ sub to_domain {
     '.' . join '.' => reverse @domain;
 }
 
-# TOP по доменам
-sub by_domains {
+# TOP
+sub arrange_stat {
     my ($stat, $limit) = @_;
 
     $limit //= 20; # лимит по умолчанию
@@ -150,6 +134,33 @@ sub by_domains {
 sub host_ips {
     my ($ips) = @_;
     map { $_ => 1 } split /[,\s]+/ => $ips;
+}
+
+# вывод таблицы статистики
+sub display_top {
+    my ($name, $stat, $totals, $limit) = @_;
+
+    # форматы для вывода данных
+    my $formats = {
+        head => '%-30s %6s %s',
+        body => '%-30s %6d %.2f',
+    };
+
+    my $top_items = 0;
+
+    # показывать статистику "остальные домены"
+    my $show_leftovers = scalar(@$stat) < 2*$limit ? 0 : 1;
+
+    say '';
+    say sprintf($formats->{head} => uc($name), 'HITS', '%%');
+    while (my ($item, $hits) = splice @$stat, 0, 2) {
+        say sprintf($formats->{body} => $item, $hits, $hits/$totals*100);
+        $top_items += $hits;
+    }
+
+    if ($show_leftovers) {
+        say sprintf($formats->{body} => 'LEFTOVERS SUMMARY', $totals-$top_items, ($totals-$top_items)/$totals*100);
+    }
 }
 
 1;
