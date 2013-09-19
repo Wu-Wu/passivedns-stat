@@ -29,31 +29,31 @@ Statistics for nameserver: svo
 Nameserver IPs: 10.1.13.13
 
 DOMAIN NAME                      HITS %%
-.google.com                       384 25.67
-.livejournal.com                  222 14.84
-.gigaset.net                      178 11.90
-.last.fm                           62 4.14
-.googleusercontent.com             42 2.81
-.akamai.net                        38 2.54
-.dropbox.com                       30 2.01
-.reg.ru                            28 1.87
-.cdngc.net                         24 1.60
-.akamaiedge.net                    24 1.60
-.edgekey.net                       24 1.60
-.yahoodns.net                      18 1.20
-.amazonaws.com                     18 1.20
-.twitter.com                       16 1.07
-.cloudfront.net                    16 1.07
-.youtube.com                       14 0.94
-.verisign.net                      14 0.94
-.yahoo.com                         14 0.94
-.footprint.net                     12 0.80
-.edgesuite.net                     12 0.80
-LEFTOVERS SUMMARY                 306 20.45
+google.com                        192 25.67
+livejournal.com                   111 14.84
+gigaset.net                        89 11.90
+last.fm                            31 4.14
+googleusercontent.com              21 2.81
+akamai.net                         19 2.54
+dropbox.com                        15 2.01
+reg.ru                             14 1.87
+edgekey.net                        12 1.60
+cdngc.net                          12 1.60
+akamaiedge.net                     12 1.60
+yahoodns.net                        9 1.20
+amazonaws.com                       9 1.20
+cloudfront.net                      8 1.07
+twitter.com                         8 1.07
+verisign.net                        7 0.94
+yahoo.com                           7 0.94
+youtube.com                         7 0.94
+akadns.net                          6 0.80
+footprint.net                       6 0.80
+LEFTOVERS SUMMARY                 153 20.45
 
 IP ADDRESS                       HITS %%
-10.1.13.110                      1318 88.10
-10.1.13.9                         178 11.90
+10.1.13.110                       659 88.10
+10.1.13.9                          89 11.90
 ```
 
 ### опции dns-top.pl
@@ -72,4 +72,3 @@ $ ./dns-top.pl -a "10.1.13.13,10.1.13.15,2001:1388:7a80::10" /path/to/passivedns
 ```shell
 $ ./dns-top.pl -l 10 -a 127.0.0.1 /path/to/passivedns.log
 ```
-
