@@ -108,6 +108,14 @@ sub to_domain {
             push @domain, $third;
         }
     }
+    elsif ($middle =~ /^in-addr/) {
+        # делаем обратную зону класса C из запроса
+        @domain = reverse split /\./, $query;
+        pop @domain; # удаляем октет хоста
+    }
+    elsif ($middle =~ /^ip6/) {
+        # XXX ничего не делаем?
+    }
 
     join '.' => reverse @domain;
 }
