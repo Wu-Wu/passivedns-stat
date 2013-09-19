@@ -3,7 +3,6 @@
 use strict;
 use warnings;
 use feature ':5.10';
-use List::MoreUtils ();
 use Getopt::Long;
 use Sys::Hostname;
 
@@ -126,7 +125,7 @@ sub arrange_stat {
 
     my @vals = @{$stat}{@sorted};
 
-    List::MoreUtils::zip @sorted, @vals;
+    zip(\@sorted, \@vals);
 }
 
 # ip адреса сервера имён
@@ -160,6 +159,16 @@ sub display_top {
     if ($show_leftovers) {
         say sprintf($formats->{body} => 'LEFTOVERS SUMMARY', $totals-$top_items, ($totals-$top_items)/$totals*100);
     }
+}
+
+# borrowed from List::MoreUtils::mesh()
+sub zip {
+    my $max = -1;
+    $max < $#$_ && ( $max = $#$_ ) foreach @_;
+    map {
+        my $ix = $_;
+        map $_->[$ix], @_;
+    } 0 .. $max;
 }
 
 1;
