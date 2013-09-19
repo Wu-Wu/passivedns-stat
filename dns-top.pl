@@ -109,7 +109,7 @@ sub to_domain {
         }
     }
 
-    '.' . join '.' => reverse @domain;
+    join '.' => reverse @domain;
 }
 
 # TOP
